@@ -1,4 +1,4 @@
-## Sistem de Agendamento Médico
+## Sistema de Agendamento Médico
 
 O Sistema de Agendamento Médico tem como objetivo facilitar o processo de marcação de consultas entre pacientes e profissionais da saúde. A aplicação oferece funcionalidades para cadastro de médicos, pacientes, especialidades e horários disponíveis, permitindo o agendamento, cancelamento e gerenciamento de consultas de forma eficiente e segura.
 ### Funcionalidades principais
