@@ -8,8 +8,7 @@
     <artifactId>springboot-base-project</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    <name>Spring Boot Base Project</name>
-    <description>Projeto base para aplicações Java com Spring Boot</description>
+    <name>Sistema de agendamento médico</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
