@@ -9,12 +9,12 @@ O Sistema de Agendamento Médico tem como objetivo facilitar o processo de marca
 - Listagem de consultas: Com filtros por paciente, medico, data, e paginacao
 
 ### Regras de negocio
-- Medico so pode ter uma consulta por vez
-- Agendamento nao pode ser retroativo
-- Consulta deve estar dentro do horario de atendimento do medico
-- Duracao fixa das consultas (ex: 30 minutos)
-- Cancelamentos com no minimo 24h de antecedencia
-- Endereco do paciente buscado via API ViaCEP
+- Medico só pode ter uma consulta por vez;
+- Agendamento não pode ser retroativo;
+- Consulta deve estar dentro do horário de atendimento do medico;
+- Duração fixa das consultas (ex: 30 minutos);
+- Cancelamentos com no minimo 24h de antecedência;
+- Endereço do paciente buscado via API ViaCEP;
 
 ### Tecnologias utilizadas
 - Java 21
