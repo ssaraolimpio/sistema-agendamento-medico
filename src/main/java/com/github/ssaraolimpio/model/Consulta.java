@@ -1,5 +1,6 @@
 package com.github.ssaraolimpio.model;
 
+import com.github.ssaraolimpio.dto.ConsultaDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,5 +32,12 @@ public class Consulta {
     @NotBlank
     @Column(name = "paciente")
     private Paciente paciente;
+
+    public Consulta(ConsultaDTO dto) {
+        this.data = dto.getData();
+        this.hora = dto.getHora();
+        this.medico = dto.getMedico();
+        this.paciente = dto.getPaciente();
+    }
 
 }

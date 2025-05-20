@@ -1,5 +1,6 @@
 package com.github.ssaraolimpio.dto;
 
+import com.github.ssaraolimpio.model.Consulta;
 import com.github.ssaraolimpio.model.Medico;
 import com.github.ssaraolimpio.model.Paciente;
 import jakarta.persistence.Entity;
@@ -24,5 +25,12 @@ public class ConsultaDTO {
 
     @NotBlank
     private Paciente paciente;
+
+    public ConsultaDTO(Consulta consulta) {
+        this.data = consulta.getData();
+        this.hora = consulta.getHora();
+        this.medico = consulta.getMedico();
+        this.paciente = consulta.getPaciente();
+    }
 
 }

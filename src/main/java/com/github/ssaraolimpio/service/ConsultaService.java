@@ -5,6 +5,6 @@ import com.github.ssaraolimpio.model.Consulta;
 
 public interface ConsultaService {
 
-    public Consulta agendarConsulta(ConsultaDTO dto);
+    public Consulta agendarConsulta(ConsultaDTO consultaDTO);
 
 }
