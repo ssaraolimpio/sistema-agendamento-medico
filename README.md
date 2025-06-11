@@ -28,6 +28,7 @@ O Sistema de Agendamento Médico tem como objetivo facilitar o processo de marca
 ## Como executar a API 
 ```bash
 mvn spring-boot:run
-
+```
+ 
 ### Visão de Arquitetura
 - Diagrama de classes
