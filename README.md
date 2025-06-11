@@ -32,3 +32,10 @@ mvn spring-boot:run
  
 ### Visão de Arquitetura
 - Diagrama de classes
+
+![image](https://github.com/user-attachments/assets/9ac8484f-430d-493f-885d-e82ad285b1d8)
+
+- Diagrama de caso de uso
+
+![image](https://github.com/user-attachments/assets/554cd6b8-259e-4713-956a-ea6d310c8469)
+
