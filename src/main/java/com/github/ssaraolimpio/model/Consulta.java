@@ -1,43 +1,38 @@
 package com.github.ssaraolimpio.model;
 
 import com.github.ssaraolimpio.dto.ConsultaDTO;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "consulta", catalog = "dbconsultorio", schema = "")
-public class Consulta {
+public class Consulta implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "idConsulta")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Column(name = "dataConsulta")
-    private String data;
+    private String dataHora;
 
-    @NotBlank
-    @Column(name = "horaConsulta")
-    private String hora;
+    @NotNull
+    private Long idMedico;
 
-    @NotBlank
-    @Column(name = "medico")
-    private Medico medico;
+    @NotNull
+    private Long idPaciente;
 
-    @NotBlank
-    @Column(name = "paciente")
-    private Paciente paciente;
+    public Consulta(){}
 
     public Consulta(ConsultaDTO dto) {
-        this.data = dto.getData();
-        this.hora = dto.getHora();
-        this.medico = dto.getMedico();
-        this.paciente = dto.getPaciente();
+        this.dataHora = dto.getDataHora();
+        this.idMedico = dto.getIdMedico();
+        this.idPaciente = dto.getIdPaciente();
     }
 
 }

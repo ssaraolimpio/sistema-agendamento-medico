@@ -1,36 +1,35 @@
 package com.github.ssaraolimpio.dto;
 
 import com.github.ssaraolimpio.model.Consulta;
-import com.github.ssaraolimpio.model.Medico;
-import com.github.ssaraolimpio.model.Paciente;
-import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class ConsultaDTO {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String data;
+    private String dataHora;
 
-    @NotBlank
-    private String hora;
+    @NotNull
+    private Long idMedico;
 
-    @NotBlank
-    private Medico medico;
+    @NotNull
+    private Long idPaciente;
 
-    @NotBlank
-    private Paciente paciente;
+    public ConsultaDTO(){}
 
     public ConsultaDTO(Consulta consulta) {
-        this.data = consulta.getData();
-        this.hora = consulta.getHora();
-        this.medico = consulta.getMedico();
-        this.paciente = consulta.getPaciente();
+        this.dataHora = consulta.getDataHora();
+        this.idMedico = consulta.getIdMedico();
+        this.idPaciente = consulta.getIdPaciente();
     }
 
 }

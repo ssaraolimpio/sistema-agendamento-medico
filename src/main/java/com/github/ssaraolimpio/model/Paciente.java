@@ -1,27 +1,25 @@
 package com.github.ssaraolimpio.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import jakarta.persistence.Id;
+
+import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "paciente", catalog = "dbconsultorio", schema = "")
-public class Paciente {
+public class Paciente implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "idPaciente")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Column(name = "nome")
     private String nome;
 
     @NotBlank
-    @Column(name = "cpf")
     private String cpf;
 
 

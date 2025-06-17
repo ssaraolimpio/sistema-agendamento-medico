@@ -1,7 +1,9 @@
 package com.github.ssaraolimpio.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.ssaraolimpio.dto.ConsultaDTO;
 import com.github.ssaraolimpio.model.Consulta;
+import com.github.ssaraolimpio.model.Medico;
 import com.github.ssaraolimpio.repository.ConsultaRepository;
 import com.github.ssaraolimpio.service.ConsultaService;
 import jakarta.validation.Valid;
@@ -15,16 +17,10 @@ import java.util.List;
 @RequestMapping("/consulta")
 public class ConsultaController {
 
-    private final ConsultaRepository consultaRepository;
-
     private Consulta consulta;
 
     @Autowired
     private ConsultaService service;
-
-    public ConsultaController(ConsultaRepository consultaRepository) {
-        this.consultaRepository = consultaRepository;
-    }
 
     @PostMapping("/agendar")
     public ResponseEntity<ConsultaDTO> agendarConsulta(@RequestBody @Valid ConsultaDTO consultaDTO){
@@ -34,6 +30,8 @@ public class ConsultaController {
         ConsultaDTO response = new ConsultaDTO(consulta);
 
         return ResponseEntity.ok(response);
+
+
     }
 
 }

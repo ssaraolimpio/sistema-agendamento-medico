@@ -8,38 +8,45 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 
-@Service
 @Slf4j
-public abstract class ConsultaServiceImpl implements ConsultaService {
+@Service
+public class ConsultaServiceImpl implements ConsultaService {
 
-    private final ConsultaRepository repository;
+    private final ConsultaRepository consultaRepository;
 
-    protected ConsultaServiceImpl(ConsultaRepository repository) {
-        this.repository = repository;
+    public ConsultaServiceImpl(ConsultaRepository consultaRepository) {
+        this.consultaRepository = consultaRepository;
     }
 
     @Override
     public Consulta agendarConsulta(ConsultaDTO consultaDTO) {
-
-        /* TODO: criar métodos que validam regras de negócio
-         *   1. agendamento não pode ser data retroativa ✅
-         *   2. a consulta deve estar dentro do horário de atendimento do médico ✅
-         *   3. médico só pode atender 1 paciente por vez (1:1)
-         * */
 
         // convertendo DTO para model
         Consulta consulta = new Consulta(consultaDTO);
 
         try {
             // valida data e hora do agendamento da consutla
-            LocalDateTime dataHoraConsulta = LocalDateTime.parse(consulta.getData() + "T" + consulta.getHora());
+            LocalDateTime dataHoraConsulta = LocalDateTime.parse(consulta.getDataHora());
             this.validaDataAgendamento(dataHoraConsulta);
+
+            // verifica disponibilidade do médico e horario na base de dados
+            boolean indisponivel = consultaRepository.existsByIdMedicoAndDataHora(consulta.getIdMedico(), consulta.getDataHora());
+            if (indisponivel){
+                throw new IllegalArgumentException("O médico já tem uma consulta marcada nesse horário.");
+            }
+            // todo: se disponivel, entao agendar consulta
+            consulta.setId(consultaDTO.getId());
+            consulta.setIdMedico(consultaDTO.getIdMedico());
+            consulta.setIdPaciente(consultaDTO.getIdPaciente());
+            consulta.setDataHora(consultaDTO.getDataHora());
+
+            consultaRepository.save(consulta);
 
         } catch (Exception e) {
             throw new RuntimeException("Erro ao validar data/hora da consulta",e);
         }
 
-        return repository.save(consulta);
+        return consultaRepository.save(consulta);
     }
 
     public void validaDataAgendamento(LocalDateTime dataHoraConsulta) throws Exception {
