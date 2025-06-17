@@ -1,6 +1,6 @@
-package com.github.ssaraolimpio.repository;
+package com.agendamento.medico.repository;
 
-import com.github.ssaraolimpio.model.Paciente;
+import com.agendamento.medico.model.Paciente;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

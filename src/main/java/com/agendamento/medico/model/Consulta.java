@@ -1,6 +1,6 @@
-package com.github.ssaraolimpio.model;
+package com.agendamento.medico.model;
 
-import com.github.ssaraolimpio.dto.ConsultaDTO;
+import com.agendamento.medico.dto.ConsultaDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

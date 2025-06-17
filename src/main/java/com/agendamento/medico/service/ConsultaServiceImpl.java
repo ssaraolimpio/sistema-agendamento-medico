@@ -1,8 +1,8 @@
-package com.github.ssaraolimpio.service;
+package com.agendamento.medico.service;
 
-import com.github.ssaraolimpio.dto.ConsultaDTO;
-import com.github.ssaraolimpio.model.Consulta;
-import com.github.ssaraolimpio.repository.ConsultaRepository;
+import com.agendamento.medico.dto.ConsultaDTO;
+import com.agendamento.medico.model.Consulta;
+import com.agendamento.medico.repository.ConsultaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;

@@ -1,14 +1,18 @@
-package com.github.ssaraolimpio.dto;
+package com.agendamento.medico.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.List;
 
+@Entity
 @Data
-public class MedicoDTO {
+public class Medico implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +29,5 @@ public class MedicoDTO {
 
     @ElementCollection
     private List<LocalTime> horariosAtendimento;
-
 
 }

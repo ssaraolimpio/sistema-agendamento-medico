@@ -1,4 +1,4 @@
-package com.github.ssaraolimpio.util;
+package com.agendamento.medico.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

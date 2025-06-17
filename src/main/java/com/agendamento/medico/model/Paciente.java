@@ -1,16 +1,14 @@
-package com.github.ssaraolimpio.model;
+package com.agendamento.medico.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalTime;
-import java.util.List;
 
 @Entity
 @Data
-public class Medico implements Serializable {
+public class Paciente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -22,12 +20,7 @@ public class Medico implements Serializable {
     private String nome;
 
     @NotBlank
-    private String crm;
+    private String cpf;
 
-    @NotBlank
-    private String especialidade;
-
-    @ElementCollection
-    private List<LocalTime> horariosAtendimento;
 
 }

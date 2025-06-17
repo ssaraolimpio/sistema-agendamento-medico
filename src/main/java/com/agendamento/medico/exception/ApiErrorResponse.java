@@ -1,4 +1,4 @@
-package com.github.ssaraolimpio.exception;
+package com.agendamento.medico.exception;
 
 import lombok.Data;
 

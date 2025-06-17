@@ -1,6 +1,6 @@
-package com.github.ssaraolimpio.dto;
+package com.agendamento.medico.dto;
 
-import com.github.ssaraolimpio.model.Consulta;
+import com.agendamento.medico.model.Consulta;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;

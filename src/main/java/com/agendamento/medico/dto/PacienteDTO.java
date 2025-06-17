@@ -1,4 +1,4 @@
-package com.github.ssaraolimpio.dto;
+package com.agendamento.medico.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

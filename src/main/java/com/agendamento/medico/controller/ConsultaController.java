@@ -1,17 +1,12 @@
-package com.github.ssaraolimpio.controller;
+package com.agendamento.medico.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.ssaraolimpio.dto.ConsultaDTO;
-import com.github.ssaraolimpio.model.Consulta;
-import com.github.ssaraolimpio.model.Medico;
-import com.github.ssaraolimpio.repository.ConsultaRepository;
-import com.github.ssaraolimpio.service.ConsultaService;
+import com.agendamento.medico.dto.ConsultaDTO;
+import com.agendamento.medico.model.Consulta;
+import com.agendamento.medico.service.ConsultaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/consulta")

@@ -1,6 +1,6 @@
-package com.github.ssaraolimpio.repository;
+package com.agendamento.medico.repository;
 
-import com.github.ssaraolimpio.model.Consulta;
+import com.agendamento.medico.model.Consulta;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
