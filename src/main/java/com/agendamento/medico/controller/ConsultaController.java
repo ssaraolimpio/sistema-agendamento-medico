@@ -21,11 +21,18 @@ public class ConsultaController {
     public ResponseEntity<ConsultaDTO> agendarConsulta(@RequestBody @Valid ConsultaDTO consultaDTO){
 
         consulta = service.agendarConsulta(consultaDTO);
-
         ConsultaDTO response = new ConsultaDTO(consulta);
 
         return ResponseEntity.ok(response);
+    }
 
+    @DeleteMapping("/cancelar")
+    public ResponseEntity<ConsultaDTO> cancelarConsulta(@RequestBody @Valid ConsultaDTO consultaDTO){
+
+        consulta = service.cancelarConsulta(consultaDTO);
+        ConsultaDTO response = new ConsultaDTO(consulta);
+
+        return ResponseEntity.ok(response);
 
     }
 

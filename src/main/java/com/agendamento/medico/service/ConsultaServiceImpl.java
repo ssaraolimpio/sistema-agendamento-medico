@@ -55,7 +55,6 @@ public class ConsultaServiceImpl implements ConsultaService {
             if (dataHoraConsulta.isBefore(LocalDateTime.now())) {
                 throw new IllegalArgumentException("A data e hora da consulta não pode ser no passado.");
             }
-
             int hora = dataHoraConsulta.getHour();
             if (hora < 8 || hora >= 18) {
                 throw new IllegalArgumentException("A consulta deve ser entre às 08:00 e 18:00.");
@@ -64,6 +63,24 @@ public class ConsultaServiceImpl implements ConsultaService {
             log.error("Erro ao validar data/hora da consulta.");
             throw new RuntimeException("Erro ao validar data/hora da consulta",e);
         }
+        finally {
+            System.out.println("Finalizando operação...");
+        }
+    }
+
+
+    @Override
+    public Consulta cancelarConsulta(ConsultaDTO consultaDTO) {
+        Consulta consulta = new Consulta(consultaDTO);
+
+        try {
+            //todo: buscar a consulta na base pelo id provavelmente e fazer um update pra cancelar
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        //return consultaRepository.delete(consulta);
+        return null;
     }
 
 }
