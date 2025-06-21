@@ -1,0 +1,28 @@
+package com.agendamento.medico.dto;
+
+import com.agendamento.medico.model.Consulta;
+import com.agendamento.medico.model.Medico;
+import com.agendamento.medico.model.Paciente;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ConsultaRequestDTO {
+
+    @NotBlank
+    @JsonProperty("dataHoraConsulta")
+    private String dataHoraConsulta;
+
+    @NotNull
+    private Medico medico;
+
+    @NotNull
+    private Paciente Paciente;
+
+}

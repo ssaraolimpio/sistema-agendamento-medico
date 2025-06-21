@@ -1,30 +1,32 @@
 package com.agendamento.medico.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalTime;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class MedicoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @NotBlank
+    @JsonProperty("nomeMedico")
+    private String nomeMedico;
 
     @NotBlank
-    private String nome;
-
-    @NotBlank
+    @JsonProperty("crm")
     private String crm;
 
     @NotBlank
+    @JsonProperty("especialidade")
     private String especialidade;
 
     @ElementCollection
-    private List<LocalTime> horariosAtendimento;
+    private List<LocalTime> agenda;
 
 
 }

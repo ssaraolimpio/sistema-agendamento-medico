@@ -1,6 +1,6 @@
 package com.agendamento.medico.controller;
 
-import com.agendamento.medico.dto.ConsultaDTO;
+import com.agendamento.medico.dto.ConsultaRequestDTO;
 import com.agendamento.medico.model.Consulta;
 import com.agendamento.medico.service.ConsultaService;
 import jakarta.validation.Valid;
@@ -18,19 +18,28 @@ public class ConsultaController {
     private ConsultaService service;
 
     @PostMapping("/agendar")
-    public ResponseEntity<ConsultaDTO> agendarConsulta(@RequestBody @Valid ConsultaDTO consultaDTO){
+    public ResponseEntity<ConsultaRequestDTO> agendarConsulta(@RequestBody @Valid ConsultaRequestDTO consultaDTO){
+
+        // todo: preciso receber uma requisição com as seguintes informações ->
+        /*
+        idConsulta
+        dataHora
+        nomeMedico
+        especialidadeMedico
+        nomePaciente
+         */
 
         consulta = service.agendarConsulta(consultaDTO);
-        ConsultaDTO response = new ConsultaDTO(consulta);
+        ConsultaRequestDTO response = new ConsultaRequestDTO(consulta);
 
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/cancelar")
-    public ResponseEntity<ConsultaDTO> cancelarConsulta(@RequestBody @Valid ConsultaDTO consultaDTO){
+    public ResponseEntity<ConsultaRequestDTO> cancelarConsulta(@RequestBody @Valid ConsultaRequestDTO consultaDTO){
 
         consulta = service.cancelarConsulta(consultaDTO);
-        ConsultaDTO response = new ConsultaDTO(consulta);
+        ConsultaRequestDTO response = new ConsultaRequestDTO(consulta);
 
         return ResponseEntity.ok(response);
 

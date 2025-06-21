@@ -8,18 +8,22 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@Table(name = "tb.pacientes")
 public class Paciente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idPaciente")
     private Long id;
 
     @NotBlank
-    private String nome;
+    @Column(name = "nomePaciente")
+    private String nomePaciente;
 
     @NotBlank
+    @Column(name = "cpf")
     private String cpf;
 
 

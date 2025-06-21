@@ -1,12 +1,11 @@
 package com.agendamento.medico.service;
 
-import com.agendamento.medico.dto.ConsultaDTO;
+import com.agendamento.medico.dto.ConsultaRequestDTO;
 import com.agendamento.medico.model.Consulta;
-import jakarta.validation.Valid;
 
 public interface ConsultaService {
 
-    public Consulta agendarConsulta(ConsultaDTO consultaDTO);
+    public Consulta agendarConsulta(ConsultaRequestDTO consultaDTO);
 
-    public Consulta cancelarConsulta(ConsultaDTO consultaDTO);
+    public Consulta cancelarConsulta(ConsultaRequestDTO consultaDTO);
 }

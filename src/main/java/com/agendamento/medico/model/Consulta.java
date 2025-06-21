@@ -1,6 +1,6 @@
 package com.agendamento.medico.model;
 
-import com.agendamento.medico.dto.ConsultaDTO;
+import com.agendamento.medico.dto.ConsultaRequestDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,29 +10,29 @@ import java.io.Serializable;
 
 @Entity
 @Data
+@Table(name = "tb.consultas")
 public class Consulta implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idConsulta")
     private Long id;
 
     @NotBlank
-    private String dataHora;
+    @Column(name = "dataHoraConsulta")
+    private String dataHoraConsulta;
 
     @NotNull
-    private Long idMedico;
+    @ManyToOne
+    @JoinColumn(name = "idMedico", nullable = false)
+    private Medico medico;
 
     @NotNull
-    private Long idPaciente;
+    @ManyToOne
+    @JoinColumn(name = "idPaciente", nullable = false)
+    private Paciente paciente;
 
-    public Consulta(){}
-
-    public Consulta(ConsultaDTO dto) {
-        this.dataHora = dto.getDataHora();
-        this.idMedico = dto.getIdMedico();
-        this.idPaciente = dto.getIdPaciente();
-    }
 
 }
