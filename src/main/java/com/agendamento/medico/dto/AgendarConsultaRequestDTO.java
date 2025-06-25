@@ -1,6 +1,5 @@
 package com.agendamento.medico.dto;
 
-import com.agendamento.medico.model.Consulta;
 import com.agendamento.medico.model.Medico;
 import com.agendamento.medico.model.Paciente;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,16 +12,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConsultaRequestDTO {
+public class AgendarConsultaRequestDTO {
 
     @NotBlank
     @JsonProperty("dataHoraConsulta")
     private String dataHoraConsulta;
 
     @NotNull
-    private Medico medico;
+    private MedicoDTO medico;
 
     @NotNull
-    private Paciente Paciente;
+    private PacienteDTO paciente;
 
 }

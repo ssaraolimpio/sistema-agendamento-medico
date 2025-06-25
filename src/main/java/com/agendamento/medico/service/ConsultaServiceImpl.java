@@ -1,10 +1,12 @@
 package com.agendamento.medico.service;
 
-import com.agendamento.medico.dto.ConsultaRequestDTO;
-import com.agendamento.medico.dto.ConsultaResponseDTO;
+import com.agendamento.medico.dto.AgendarConsultaRequestDTO;
+import com.agendamento.medico.dto.AgendarConsultaResponseDTO;
 import com.agendamento.medico.model.Consulta;
 import com.agendamento.medico.repository.ConsultaRepository;
+import com.agendamento.medico.util.ConsultaMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
@@ -14,40 +16,42 @@ import java.time.LocalDateTime;
 public class ConsultaServiceImpl implements ConsultaService {
 
     private final ConsultaRepository consultaRepository;
+    private final ConsultaMapper mapper;
 
-    public ConsultaServiceImpl(ConsultaRepository consultaRepository) {
+    public ConsultaServiceImpl(ConsultaRepository consultaRepository, ConsultaMapper mapper) {
         this.consultaRepository = consultaRepository;
+        this.mapper = mapper;
     }
 
     @Override
-    public Consulta agendarConsulta(ConsultaRequestDTO consultaDTO) {
+    public AgendarConsultaResponseDTO agendarConsulta(AgendarConsultaRequestDTO consultaDTO) {
 
-        Consulta consulta = new Consulta();
-        ConsultaResponseDTO response = new ConsultaResponseDTO();
+        Consulta consulta = mapper.toEntity(consultaDTO);
+        AgendarConsultaResponseDTO response = new AgendarConsultaResponseDTO();
 
         try {
             LocalDateTime dataHoraConsulta = LocalDateTime.parse(consulta.getDataHoraConsulta());
             this.validaDataAgendamento(dataHoraConsulta);
 
-            boolean isIndisponivel = consultaRepository.existsByIdMedicoAndDataHora(consulta.getMedico(), consulta.getDataHoraConsulta());
+            boolean isIndisponivel = consultaRepository.existsByMedicoIdAndDataHoraConsulta(consulta.getMedico().getId(), consulta.getDataHoraConsulta());
 
             if (isIndisponivel) {
                 throw new IllegalArgumentException("O médico já tem uma consulta marcada nesse horário.");
             } else {
-                consulta.setDataHoraConsulta(response.getDataHoraConsulta());
-                consulta.getPaciente().setNomePaciente(response.getNomePaciente());
-                consulta.getPaciente().setCpf(response.getCpf());
-                consulta.getMedico().setNomeMedico(response.getNomeMedico());
-                consulta.getMedico().setEspecialidade(response.getEspecialidade());
+                response.setIdConsulta(consulta.getId());
+                response.setDataHoraConsulta(consulta.getDataHoraConsulta());
+                response.setNomePaciente(consulta.getPaciente().getNomePaciente());
+                response.setCpf(consulta.getPaciente().getCpf());
+                response.setNomeMedico(consulta.getMedico().getNomeMedico());
+                response.setEspecialidade(consulta.getMedico().getEspecialidade());
 
-                consultaRepository.save(consulta);
+                return response;
             }
         } catch (Exception e) {
             throw new RuntimeException("Erro ao validar data/hora da consulta",e);
         }
-        return consultaRepository.save(consulta);
-
     }
+
 
     public void validaDataAgendamento(LocalDateTime dataHoraConsulta) throws Exception {
 
@@ -67,11 +71,11 @@ public class ConsultaServiceImpl implements ConsultaService {
 
 
     @Override
-    public Consulta cancelarConsulta(ConsultaRequestDTO consultaDTO) {
+    public Consulta cancelarConsulta(AgendarConsultaRequestDTO consultaDTO) {
         Consulta consulta = new Consulta();
 
         try {
-            //todo: buscar a consulta na base pelo id provavelmente e fazer um update pra cancelar
+            //todo: buscar a consulta na base pelo id?
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,8 @@
 package com.agendamento.medico.controller;
 
-import com.agendamento.medico.dto.ConsultaRequestDTO;
+import com.agendamento.medico.dto.AgendarConsultaRequestDTO;
+import com.agendamento.medico.dto.AgendarConsultaResponseDTO;
+import com.agendamento.medico.dto.CancelarConsultaRequestDTO;
 import com.agendamento.medico.model.Consulta;
 import com.agendamento.medico.service.ConsultaService;
 import jakarta.validation.Valid;
@@ -12,37 +14,26 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/consulta")
 public class ConsultaController {
 
-    private Consulta consulta;
-
     @Autowired
     private ConsultaService service;
 
     @PostMapping("/agendar")
-    public ResponseEntity<ConsultaRequestDTO> agendarConsulta(@RequestBody @Valid ConsultaRequestDTO consultaDTO){
+    public ResponseEntity<AgendarConsultaResponseDTO> agendarConsulta(@RequestBody @Valid AgendarConsultaRequestDTO consultaDTO){
 
-        // todo: preciso receber uma requisição com as seguintes informações ->
-        /*
-        idConsulta
-        dataHora
-        nomeMedico
-        especialidadeMedico
-        nomePaciente
-         */
-
-        consulta = service.agendarConsulta(consultaDTO);
-        ConsultaRequestDTO response = new ConsultaRequestDTO(consulta);
+        AgendarConsultaResponseDTO response = service.agendarConsulta(consultaDTO);
 
         return ResponseEntity.ok(response);
     }
 
+    /*
     @DeleteMapping("/cancelar")
-    public ResponseEntity<ConsultaRequestDTO> cancelarConsulta(@RequestBody @Valid ConsultaRequestDTO consultaDTO){
+    public ResponseEntity<CancelarConsultaRequestDTO> cancelarConsulta(@RequestBody @Valid CancelarConsultaRequestDTO cancelar){
 
-        consulta = service.cancelarConsulta(consultaDTO);
-        ConsultaRequestDTO response = new ConsultaRequestDTO(consulta);
+        consulta = service.cancelarConsulta(cancelar);
+        CancelarConsultaRequestDTO response = new CancelarConsultaRequestDTO(consulta);
 
         return ResponseEntity.ok(response);
 
-    }
+    }*/
 
 }

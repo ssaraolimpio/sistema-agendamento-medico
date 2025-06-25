@@ -1,11 +1,12 @@
 package com.agendamento.medico.service;
 
-import com.agendamento.medico.dto.ConsultaRequestDTO;
+import com.agendamento.medico.dto.AgendarConsultaRequestDTO;
+import com.agendamento.medico.dto.AgendarConsultaResponseDTO;
 import com.agendamento.medico.model.Consulta;
 
 public interface ConsultaService {
 
-    public Consulta agendarConsulta(ConsultaRequestDTO consultaDTO);
+    public AgendarConsultaResponseDTO agendarConsulta(AgendarConsultaRequestDTO consultaDTO);
 
-    public Consulta cancelarConsulta(ConsultaRequestDTO consultaDTO);
+    public Consulta cancelarConsulta(AgendarConsultaRequestDTO consultaDTO);
 }
