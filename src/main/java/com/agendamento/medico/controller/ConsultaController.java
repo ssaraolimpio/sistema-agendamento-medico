@@ -18,7 +18,7 @@ public class ConsultaController {
     private ConsultaService service;
 
     @PostMapping("/agendar")
-    public ResponseEntity<AgendarConsultaResponseDTO> agendarConsulta(@RequestBody @Valid AgendarConsultaRequestDTO consultaDTO){
+    public ResponseEntity<AgendarConsultaResponseDTO> agendarConsulta(@RequestBody @Valid AgendarConsultaRequestDTO consultaDTO) throws Exception {
 
         AgendarConsultaResponseDTO response = service.agendarConsulta(consultaDTO);
 

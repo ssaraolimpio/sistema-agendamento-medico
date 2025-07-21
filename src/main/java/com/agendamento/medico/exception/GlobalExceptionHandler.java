@@ -4,10 +4,12 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
@@ -28,16 +30,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    /*
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
         ApiErrorResponse error = new ApiErrorResponse(
-                HttpStatus.NOT_FOUND.value(),
-                "Resource Not Found",
+                HttpStatus.BAD_REQUEST.value(),
+                "Bad Request",
                 ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
-    */
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleAllExceptions(Exception ex) {

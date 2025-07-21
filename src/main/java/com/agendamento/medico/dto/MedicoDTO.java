@@ -18,7 +18,6 @@ public class MedicoDTO {
     private String nomeMedico;
 
     @NotBlank
-    @JsonProperty("crm")
     private String crm;
 
     @NotBlank

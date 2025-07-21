@@ -6,7 +6,7 @@ import com.agendamento.medico.model.Consulta;
 
 public interface ConsultaService {
 
-    public AgendarConsultaResponseDTO agendarConsulta(AgendarConsultaRequestDTO consultaDTO);
+    public AgendarConsultaResponseDTO agendarConsulta(AgendarConsultaRequestDTO consultaDTO) throws Exception;
 
     public Consulta cancelarConsulta(AgendarConsultaRequestDTO consultaDTO);
 }

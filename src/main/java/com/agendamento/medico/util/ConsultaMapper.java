@@ -18,10 +18,10 @@ public interface ConsultaMapper {
 
     @Mapping(target = "idConsulta", source = "id")
     @Mapping(target = "dataHoraConsulta", source = "dataHoraConsulta")
-    @Mapping(target = "nomePaciente", source = "paciente.nomePaciente")
-    @Mapping(target = "cpf", source = "paciente.cpf")
     @Mapping(target = "nomeMedico", source = "medico.nomeMedico")
     @Mapping(target = "especialidade", source = "medico.especialidade")
+    @Mapping(target = "nomePaciente", source = "paciente.nomePaciente")
+    @Mapping(target = "cpf", source = "paciente.cpf")
     public AgendarConsultaResponseDTO toResponseDTO(Consulta consulta);
 
 
