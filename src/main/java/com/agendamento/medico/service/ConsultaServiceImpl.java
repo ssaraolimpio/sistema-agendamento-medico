@@ -3,16 +3,11 @@ package com.agendamento.medico.service;
 import com.agendamento.medico.dto.AgendarConsultaRequestDTO;
 import com.agendamento.medico.dto.AgendarConsultaResponseDTO;
 import com.agendamento.medico.model.Consulta;
-import com.agendamento.medico.model.Medico;
-import com.agendamento.medico.model.Paciente;
 import com.agendamento.medico.repository.ConsultaRepository;
-import com.agendamento.medico.repository.MedicoRepository;
-import com.agendamento.medico.repository.PacienteRepository;
 import com.agendamento.medico.util.ConsultaMapper;
+import com.agendamento.medico.validation.ValidaDadosConsulta;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
 
 
 @Slf4j
@@ -20,15 +15,15 @@ import java.time.LocalDateTime;
 public class ConsultaServiceImpl implements ConsultaService {
 
     private final ConsultaRepository consultaRepository;
-    private final MedicoRepository medicoRepository;
-    private final PacienteRepository pacienteRepository;
     private final ConsultaMapper mapper;
+    private final ValidaDadosConsulta validaDadosConsulta;
 
-    public ConsultaServiceImpl(ConsultaRepository consultaRepository, MedicoRepository medicoRepository, PacienteRepository pacienteRepository, ConsultaMapper mapper) {
+    public ConsultaServiceImpl(ConsultaRepository consultaRepository,
+                               ConsultaMapper mapper,
+                               ValidaDadosConsulta validaDadosConsulta) {
         this.consultaRepository = consultaRepository;
         this.mapper = mapper;
-        this.medicoRepository = medicoRepository;
-        this.pacienteRepository = pacienteRepository;
+        this.validaDadosConsulta = validaDadosConsulta;
     }
 
     @Override
@@ -37,21 +32,16 @@ public class ConsultaServiceImpl implements ConsultaService {
         Consulta consulta = mapper.toEntity(consultaDTO);
         AgendarConsultaResponseDTO response = new AgendarConsultaResponseDTO();
 
-            LocalDateTime dataHoraConsulta = LocalDateTime.parse(consulta.getDataHoraConsulta());
-            this.validaDataAgendamento(dataHoraConsulta);
+            validaDadosConsulta.validaDataAgendamento(consulta);
+            validaDadosConsulta.validaPaciente(consulta);
+            validaDadosConsulta.validaMedico(consulta);
 
-            Paciente paciente = pacienteRepository.findByCpf(consulta.getPaciente().getCpf())
-                    .orElseThrow(() -> new IllegalArgumentException("Paciente não possui cadastro."));
-
-            Medico medico = medicoRepository.findByCrm(consulta.getMedico().getCrm())
-                    .orElseThrow(() -> new IllegalArgumentException("Médico não possui cadastro."));
-
-            boolean isIndisponivel = consultaRepository.existsByMedicoIdAndDataHoraConsulta(consulta.getMedico().getId(), consulta.getDataHoraConsulta());
-
-            if (isIndisponivel) {
+            // Se o médico já tiver uma consulta marcada nesse horário, lança uma exceção
+            if (!validaDadosConsulta.validaDisponibilidadeMedico(consulta)) {
                 throw new IllegalArgumentException("O médico já tem uma consulta marcada nesse horário.");
             } else {
 
+                // Se o paciente e o médico estiverem cadastrados + horário disponível, prossegue com o agendamento da consulta
                 response.setIdConsulta(consulta.getId());
                 response.setDataHoraConsulta(consulta.getDataHoraConsulta());
                 response.setNomePaciente(consulta.getPaciente().getNomePaciente());
@@ -66,18 +56,7 @@ public class ConsultaServiceImpl implements ConsultaService {
     }
 
 
-    public void validaDataAgendamento(LocalDateTime dataHoraConsulta) throws Exception {
-
-            if (dataHoraConsulta.isBefore(LocalDateTime.now())) {
-                throw new IllegalArgumentException("A data e hora da consulta não pode ser no passado.");
-            }
-            int hora = dataHoraConsulta.getHour();
-            if (hora < 8 || hora >= 18) {
-                throw new IllegalArgumentException("A consulta deve ser agendada entre às 08:00 e 18:00.");
-            }
-    }
-
-
+    
     @Override
     public Consulta cancelarConsulta(AgendarConsultaRequestDTO consultaDTO) {
         Consulta consulta = new Consulta();
